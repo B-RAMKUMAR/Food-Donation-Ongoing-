@@ -1,0 +1,108 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* Available Food Section Styles */
+#available-food {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#food-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.food-item {
+  position: relative;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.accept-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.accept-button:hover {
+  background-color: #222;
+}
+
+.meal-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Add Food Section Styles */
+#add-food {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#addFoodForm label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#addFoodForm input[type="text"],
+#addFoodForm button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#addFoodButton {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#addFoodButton:hover {
+  background-color: #222;
+}

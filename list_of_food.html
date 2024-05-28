@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List of Available Food</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional CSS for the food list */
+    #food-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .food-item {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .food-details {
+      font-weight: bold;
+    }
+
+    .location {
+      font-style: italic;
+    }
+
+    .meal-icon {
+      width: 100px; /* Increase the size of the image */
+      height: 100px; /* Increase the size of the image */
+      margin-right: 10px;
+    }
+
+    .accept-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .accept-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Food Donation</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="signup_donor.html">Sign Up as Donor</a>
+      <a href="signup_acceptor.html">Sign Up as Acceptor</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="available-food">
+      <h2>List of Available Food</h2>
+      <!-- Display available food items here -->
+      <ul id="food-list">
+        <!-- Food items will be added dynamically here -->
+      </ul>
+    </section>
+
+    <section id="add-food">
+      <h2>Add Food</h2>
+      <form action="#" method="post" id="addFoodForm">
+        <label for="food-name">Food Name:</label>
+        <input type="text" id="food-name" name="food-name" required>
+        
+        <label for="meal-type">Meal Type:</label>
+        <input type="text" id="meal-type" name="meal-type" required>
+        
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        
+        <label for="landmark">Landmark:</label>
+        <input type="text" id="landmark" name="landmark" required>
+        
+        <button type="submit">Add</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Food Donation</p>
+  </footer>
+
+  <script>
+    // Load food items from local storage when the page loads
+    window.addEventListener('load', function() {
+      var foodList = JSON.parse(localStorage.getItem('foodList')) || [];
+      renderFoodList(foodList);
+    });
+
+    // Function to add a new food item
+    function addFood() {
+      var foodName = document.getElementById("food-name").value;
+      var mealType = document.getElementById("meal-type").value;
+      var location = document.getElementById("location").value;
+      var landmark = document.getElementById("landmark").value;
+
+      var foodItem = { foodName: foodName, mealType: mealType, location: location, landmark: landmark };
+
+      var foodList = JSON.parse(localStorage.getItem('foodList')) || [];
+      foodList.push(foodItem);
+      localStorage.setItem('foodList', JSON.stringify(foodList));
+
+      renderFoodList(foodList);
+
+      // Clear form fields
+      document.getElementById("food-name").value = "";
+      document.getElementById("meal-type").value = "";
+      document.getElementById("location").value = "";
+      document.getElementById("landmark").value = "";
+    }
+
+    // Function to render the food list
+    function renderFoodList(foodList) {
+      var foodListElement = document.getElementById("food-list");
+      foodListElement.innerHTML = '';
+
+      foodList.forEach(function(foodItem) {
+        var li = document.createElement('li');
+        li.classList.add('food-item');
+        li.innerHTML = `
+          <img src="${getMealTypeImage(foodItem.mealType)}" alt="${foodItem.mealType}" class="meal-icon">
+          <div>
+            <span class="food-details
+"><strong>${foodItem.foodName}</strong> - ${foodItem.mealType}</span>
+            <span class="location">Location: ${foodItem.location}, Landmark: ${foodItem.landmark}</span>
+          </div>
+          <button class="accept-button" onclick="acceptFood(this)">Accept</button>
+        `;
+        foodListElement.appendChild(li);
+      });
+    }
+
+    // Function to handle accepting food
+    function acceptFood(button) {
+      var listItem = button.parentNode;
+      var foodName = listItem.querySelector('strong').textContent;
+
+      var foodList = JSON.parse(localStorage.getItem('foodList')) || [];
+      foodList = foodList.filter(function(foodItem) {
+        return foodItem.foodName !== foodName;
+      });
+
+      localStorage.setItem('foodList', JSON.stringify(foodList));
+      renderFoodList(foodList);
+    }
+
+    // Function to get placeholder image based on meal type
+    function getMealTypeImage(mealType) {
+      return mealType === 'Veg' ? 'veg_icon.jpeg' : 'nonveg_icon.jpg';
+    }
+
+    // Event listener for form submission to add food item
+    document.getElementById("addFoodForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission behavior
+      addFood(); // Call the function to add food
+    });
+  </script>
+</body>
+</html>
